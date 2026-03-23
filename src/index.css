@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #F9E29C;
+  --color-gold-dark: #996515;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white selection:bg-gold selection:text-black;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.text-gradient-gold {
+  @apply bg-linear-to-b from-gold-light via-gold to-gold-dark bg-clip-text text-transparent;
+}
