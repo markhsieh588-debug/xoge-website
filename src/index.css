@@ -29,3 +29,70 @@
 .text-gradient-gold {
   @apply bg-linear-to-b from-gold-light via-gold to-gold-dark bg-clip-text text-transparent;
 }
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #F9E29C;
+  --color-gold-dark: #996515;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white selection:bg-gold selection:text-black;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.text-gradient-gold {
+  @apply bg-linear-to-b from-gold-light via-gold to-gold-dark bg-clip-text text-transparent;
+}
+
+@theme {
+  --color-meme-yellow: #FFE24B;
+  --color-meme-yellow-light: #FFF9D1;
+  --color-meme-black: #000000;
+  --color-meme-white: #FFFFFF;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-meme-black selection:bg-meme-yellow selection:text-meme-black font-sans;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(2deg); }
+  50% { transform: translateY(-20px) rotate(0deg); }
+  75% { transform: translateY(-10px) rotate(-2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-meme-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.brutalist-card {
+  @apply bg-white border-4 border-meme-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none;
+}
+
+.brutalist-button {
+  @apply bg-meme-yellow border-4 border-meme-black px-8 py-3 font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:bg-meme-yellow-light;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 2px black;
+}

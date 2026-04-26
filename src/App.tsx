@@ -5,9 +5,9 @@
 
 import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wallet, Zap, Shield, Users, ExternalLink, Copy, Check, Menu, X } from 'lucide-react';
+import { Wallet, Zap, Shield, Users, ExternalLink, Copy, Check, Menu, X, Rocket } from 'lucide-react';
 
-// Note: Placeholder for xian-js SDK integration
+// Pre-reserved location for xian-js SDK integration
 // import { XianWallet } from 'xian-js'; 
 
 export default function App() {
@@ -20,8 +20,12 @@ export default function App() {
 
   const handleConnectWallet = async () => {
     // Integration point for xian-js
+    // 1. Check if wallet extension exists
+    // 2. Request account access
+    // 3. Set wallet address in state
     console.log("Connecting to Xian Wallet...");
-    // Mock connection
+    
+    // Mocking connection for UI demonstration
     setIsWalletConnected(true);
     setWalletAddress("xian_1abc...789xyz");
   };
@@ -33,35 +37,37 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black font-sans selection:bg-gold selection:text-black">
+    <div className="min-h-screen bg-meme-yellow-light text-meme-black font-sans selection:bg-meme-yellow">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gold/10">
+      <nav className="fixed top-0 w-full z-50 bg-white border-b-4 border-meme-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/50">
-                <span className="text-gold font-bold text-xl">X</span>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-meme-yellow border-4 border-meme-black rounded-full flex items-center justify-center overflow-hidden">
+                <span className="text-2xl font-black italic">X</span>
               </div>
-              <span className="text-2xl font-black tracking-tighter text-gradient-gold">XOGE</span>
+              <span className="text-3xl font-black tracking-tighter uppercase italic">XOGE</span>
             </div>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm font-medium hover:text-gold transition-colors">Features</a>
-              <a href="#tokenomics" className="text-sm font-medium hover:text-gold transition-colors">Tokenomics</a>
+            <div className="hidden md:flex items-center gap-10">
+              <a href="#features" className="text-lg font-black uppercase hover:text-meme-yellow transition-all drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">Features</a>
+              <a href="#tokenomics" className="text-lg font-black uppercase hover:text-meme-yellow transition-all drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">Tokenomics</a>
               <button 
                 onClick={handleConnectWallet}
-                className="flex items-center gap-2 px-6 py-2.5 bg-gold hover:bg-gold-light text-black font-bold rounded-full transition-all active:scale-95 glow-gold"
+                className="brutalist-button flex items-center gap-2"
               >
-                <Wallet size={18} />
-                {isWalletConnected ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}` : "Connect Xian Wallet"}
+                <Wallet size={20} strokeWidth={3} />
+                <span className="font-black">
+                  {isWalletConnected ? `${walletAddress.slice(0, 6)}...` : "Connect Xian Wallet"}
+                </span>
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gold">
-                {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 border-2 border-meme-black bg-meme-yellow">
+                {isMenuOpen ? <X size={32} strokeWidth={3} /> : <Menu size={32} strokeWidth={3} />}
               </button>
             </div>
           </div>
@@ -71,19 +77,19 @@ export default function App() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-black border-b border-gold/10 overflow-hidden"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden bg-meme-yellow border-b-4 border-meme-black overflow-hidden"
             >
-              <div className="px-4 py-6 flex flex-col gap-4">
-                <a href="#features" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Features</a>
-                <a href="#tokenomics" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Tokenomics</a>
+              <div className="px-4 py-8 flex flex-col gap-6 items-center">
+                <a href="#features" onClick={() => setIsMenuOpen(false)} className="text-2xl font-black uppercase">Features</a>
+                <a href="#tokenomics" onClick={() => setIsMenuOpen(false)} className="text-2xl font-black uppercase">Tokenomics</a>
                 <button 
                   onClick={() => { handleConnectWallet(); setIsMenuOpen(false); }}
-                  className="flex items-center justify-center gap-2 px-6 py-4 bg-gold text-black font-bold rounded-xl"
+                  className="brutalist-button w-full flex justify-center items-center gap-3"
                 >
-                  <Wallet size={20} />
+                  <Wallet size={24} strokeWidth={3} />
                   Connect Wallet
                 </button>
               </div>
@@ -93,135 +99,174 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold/30 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gold/20 rounded-full blur-[120px]" />
-        </div>
+      <section className="relative pt-32 pb-20 md:pt-52 md:pb-40 overflow-hidden bg-meme-yellow">
+        {/* Dynamic Background Pattern */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #000 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-bold tracking-widest uppercase">
-              The Next Evolution of Doge
-            </div>
-            <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-none">
-              XOGE - The Speed of <br />
-              <span className="text-gradient-gold">Doge on Xian</span>
-            </h1>
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-zinc-400 mb-10 leading-relaxed">
-              Experience lightning-fast transactions and meme-powered community growth on the Xian blockchain. 
-              The speed you need, the doge you love.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto px-10 py-4 bg-gold text-black font-black text-lg rounded-full hover:bg-gold-light transition-all glow-gold">
-                BUY XOGE NOW
-              </button>
-              <button className="w-full sm:w-auto px-10 py-4 bg-white/5 border border-white/10 text-white font-black text-lg rounded-full hover:bg-white/10 transition-all">
-                VIEW CHART
-              </button>
-            </div>
-          </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center lg:text-left"
+            >
+              <div className="inline-block px-6 py-2 mb-8 bg-white border-4 border-meme-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <span className="font-black uppercase tracking-widest text-sm">The Fastest Doge in the Universe</span>
+              </div>
+              <h1 className="text-6xl md:text-8xl font-black mb-8 leading-[0.9] uppercase italic">
+                XOGE - <br />
+                The <span className="bg-white px-4 inline-block transform -rotate-2 border-4 border-meme-black">Speed</span> <br />
+                Of Doge
+              </h1>
+              <p className="text-xl md:text-2xl font-bold mb-12 max-w-xl mx-auto lg:mx-0 leading-tight">
+                Built on the Xian network. Fast transactions. Secure assets. Much community power. Very blockchain technology.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                <button className="brutalist-button text-xl px-12 py-5 bg-white scale-110">
+                  GET XOGE NOW
+                </button>
+                <button className="flex items-center gap-2 font-black uppercase text-lg group">
+                  <span className="border-b-4 border-meme-black group-hover:border-white transition-all">View Chart</span>
+                  <Rocket className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                </button>
+              </div>
+            </motion.div>
 
-          {/* Hero Image / Logo */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            className="mt-20 relative"
-          >
-            <div className="absolute inset-0 bg-gold/20 blur-[100px] rounded-full scale-75 animate-pulse" />
-            <img 
-              src="https://picsum.photos/seed/xoge/800/800" // Replace with actual logo path
-              alt="XOGE Logo" 
-              className="relative mx-auto w-64 md:w-96 h-auto animate-float drop-shadow-[0_0_50px_rgba(212,175,55,0.4)]"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="relative"
+            >
+              <div className="absolute -inset-10 bg-meme-black opacity-5 rounded-full blur-3xl animate-pulse"></div>
+              
+              {/* Custom SVG Mascot drawn based on user's logo */}
+              <div className="relative mx-auto w-full max-w-[340px] aspect-square animate-meme-float">
+                <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
+                  {/* Yellow Background Circle */}
+                  <circle cx="100" cy="100" r="95" fill="#FFE24B" stroke="black" strokeWidth="6" />
+                  
+                  {/* Dog Body/Face */}
+                  <path d="M50,180 Q50,60 100,60 Q150,60 150,180" fill="white" stroke="black" strokeWidth="4" />
+                  
+                  {/* Ears */}
+                  <ellipse cx="60" cy="80" rx="25" ry="20" fill="black" transform="rotate(-15, 60, 80)" />
+                  <ellipse cx="140" cy="80" rx="25" ry="20" fill="black" transform="rotate(15, 140, 80)" />
+                  
+                  {/* Eyes */}
+                  <circle cx="80" cy="110" r="22" fill="white" stroke="black" strokeWidth="3" />
+                  <circle cx="120" cy="110" r="22" fill="white" stroke="black" strokeWidth="3" />
+                  <circle cx="85" cy="112" r="8" fill="black" />
+                  <circle cx="115" cy="112" r="8" fill="black" />
+                  
+                  {/* Nose */}
+                  <ellipse cx="100" cy="135" rx="10" ry="7" fill="black" />
+                  
+                  {/* Mouth and Tongue */}
+                  <path d="M85,150 Q100,165 115,150" fill="none" stroke="black" strokeWidth="3" />
+                  <path d="M92,158 Q100,175 108,158 Z" fill="#FF6B6B" stroke="black" strokeWidth="2" />
+                </svg>
+              </div>
+
+              {/* Floating stickers for meme element */}
+              <div className="absolute -top-10 -right-10 bg-white border-4 border-meme-black p-4 rotate-12 font-black uppercase text-xl brutalist-card z-20">
+                🚀 MOON!
+              </div>
+              <div className="absolute -bottom-5 -left-10 bg-meme-yellow border-4 border-meme-black p-4 -rotate-12 font-black uppercase text-xl brutalist-card z-20">
+                FAST AF!
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 bg-zinc-950 border-y border-white/5">
+      <section id="features" className="py-32 bg-white border-y-8 border-meme-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-black uppercase italic mb-4">Why XOGE?</h2>
+            <p className="text-xl font-bold">The most powerful meme token on Xian chain.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <FeatureCard 
-              icon={<Zap className="text-gold" size={32} />}
-              title="Lightning Fast"
-              description="Built on the Xian blockchain for near-instant transaction finality. No more waiting for blocks."
+              icon={<Zap className="text-meme-black" size={48} strokeWidth={3} />}
+              title="Lightning Speed"
+              description="Xian network allows XOGE to settle transactions faster than you can say 'Much Wow'."
+              bgColor="bg-meme-yellow"
             />
             <FeatureCard 
-              icon={<Shield className="text-gold" size={32} />}
-              title="Secure & Audited"
-              description="Smart contract security is our priority. XOGE is built with robust standards to protect the pack."
+              icon={<Shield className="text-meme-black" size={48} strokeWidth={3} />}
+              title="Locked Security"
+              description="Pure smart contract logic ensures your XOGE remains safe from any bad actors."
+              bgColor="bg-white"
             />
             <FeatureCard 
-              icon={<Users className="text-gold" size={32} />}
+              icon={<Users className="text-meme-black" size={48} strokeWidth={3} />}
               title="Community Driven"
-              description="100% community-led project. No VCs, no hidden agendas. Just pure Doge energy."
+              description="Owned by the people, for the people. No VCs. No hidden mints. Just pure community."
+              bgColor="bg-meme-yellow"
             />
           </div>
         </div>
       </section>
 
       {/* Token Info Section */}
-      <section id="tokenomics" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-zinc-900/50 border border-gold/20 rounded-3xl p-8 md:p-16 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-8 opacity-10">
-              <Zap size={200} className="text-gold" />
+      <section id="tokenomics" className="py-32 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="brutalist-card p-10 md:p-16 relative">
+            <div className="absolute -top-10 -right-10 bg-meme-yellow border-4 border-meme-black p-6 rounded-full w-24 h-24 flex items-center justify-center font-black">
+              100%
             </div>
             
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">Token Information</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                  <p className="text-zinc-400 mb-2 uppercase text-xs font-bold tracking-widest">Contract Address</p>
-                  <div className="flex items-center gap-3 p-4 bg-black rounded-xl border border-white/10 group">
-                    <code className="text-gold font-mono text-lg break-all">{CONTRACT_NAME}</code>
-                    <button 
-                      onClick={copyToClipboard}
-                      className="p-2 hover:bg-white/10 rounded-lg transition-colors text-zinc-400 hover:text-gold"
-                    >
-                      {copied ? <Check size={20} /> : <Copy size={20} />}
-                    </button>
+            <h2 className="text-4xl md:text-6xl font-black mb-10 tracking-tight uppercase italic underline decoration-meme-yellow decoration-8">Token Info</h2>
+            
+            <div className="space-y-12">
+              <div>
+                <p className="text-sm font-black uppercase mb-4 tracking-widest opacity-60">Contract Address</p>
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="flex-1 w-full p-4 bg-meme-yellow-light border-4 border-meme-black font-mono text-xl font-bold break-all">
+                    {CONTRACT_NAME}
                   </div>
-                  <div className="mt-6 space-y-4">
-                    <div className="flex justify-between border-b border-white/5 pb-2">
-                      <span className="text-zinc-500">Blockchain</span>
-                      <span className="font-bold">Xian Network</span>
-                    </div>
-                    <div className="flex justify-between border-b border-white/5 pb-2">
-                      <span className="text-zinc-500">Total Supply</span>
-                      <span className="font-bold">1,000,000,000 XOGE</span>
-                    </div>
-                    <div className="flex justify-between border-b border-white/5 pb-2">
-                      <span className="text-zinc-500">Tax</span>
-                      <span className="font-bold">0% Buy / 0% Sell</span>
-                    </div>
-                  </div>
+                  <button 
+                    onClick={copyToClipboard}
+                    className="brutalist-button p-4 min-w-[120px] flex items-center justify-center gap-2"
+                  >
+                    {copied ? <Check size={24} strokeWidth={3} /> : <Copy size={24} strokeWidth={3} />}
+                    <span className="font-black uppercase">{copied ? "Copied" : "Copy"}</span>
+                  </button>
                 </div>
+              </div>
 
-                <div className="flex flex-col justify-center">
-                  <div className="p-6 bg-gold/5 rounded-2xl border border-gold/10 italic text-zinc-300">
-                    "XOGE isn't just a token; it's a movement. We're bringing the fun of Doge with the serious tech of Xian. Much fast. Very chain. Wow."
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center border-b-4 border-meme-black pb-2">
+                    <span className="font-black uppercase italic">Network</span>
+                    <span className="font-black">Xian</span>
                   </div>
-                  <div className="mt-8 flex gap-4">
-                    <a href="#" className="flex-1 flex items-center justify-center gap-2 py-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all border border-white/10">
-                      <ExternalLink size={18} />
-                      Explorer
-                    </a>
-                    <a href="#" className="flex-1 flex items-center justify-center gap-2 py-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all border border-white/10">
-                      <Users size={18} />
-                      Telegram
-                    </a>
+                  <div className="flex justify-between items-center border-b-4 border-meme-black pb-2">
+                    <span className="font-black uppercase italic">Liquidity</span>
+                    <span className="font-black text-green-600">LOCKED</span>
                   </div>
                 </div>
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center border-b-4 border-meme-black pb-2">
+                    <span className="font-black uppercase italic">Tax</span>
+                    <span className="font-black">0% / 0%</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b-4 border-meme-black pb-2">
+                    <span className="font-black uppercase italic">Ownership</span>
+                    <span className="font-black">RENOUNCED</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="pt-6">
+                <a href="#" className="brutalist-button w-full block text-center flex items-center justify-center gap-3">
+                  <ExternalLink size={24} strokeWidth={3} />
+                  View on Explorer
+                </a>
               </div>
             </div>
           </div>
@@ -229,14 +274,22 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-white/5 text-center">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-2xl font-black tracking-tighter text-gradient-gold">XOGE</span>
+      <footer className="py-20 bg-meme-black text-white border-t-8 border-meme-black">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <div className="w-10 h-10 bg-meme-yellow border-2 border-white rounded-full flex items-center justify-center">
+               <span className="text-meme-black font-black italic">X</span>
+            </div>
+            <span className="text-4xl font-black italic tracking-tighter uppercase">XOGE</span>
           </div>
-          <p className="text-zinc-500 text-sm">
-            © 2026 XOGE Community. Built on Xian.org. <br />
-            Cryptocurrencies are volatile. Invest only what you can afford to lose.
+          <div className="flex flex-wrap justify-center gap-8 mb-10">
+            <a href="#" className="font-bold hover:text-meme-yellow transition-all">Twitter</a>
+            <a href="#" className="font-bold hover:text-meme-yellow transition-all">Telegram</a>
+            <a href="#" className="font-bold hover:text-meme-yellow transition-all">Discord</a>
+            <a href="#" className="font-bold hover:text-meme-yellow transition-all">GitHub</a>
+          </div>
+          <p className="text-zinc-500 font-bold max-w-xl mx-auto leading-relaxed">
+            © 2026 XOGE DAO. Much Community. No Financial Advice. Always Do Your Own Research.
           </p>
         </div>
       </footer>
@@ -244,15 +297,15 @@ export default function App() {
   );
 }
 
-function FeatureCard({ icon, title, description }: { icon: ReactNode, title: string, description: string }) {
+function FeatureCard({ icon, title, description, bgColor }: { icon: ReactNode, title: string, description: string, bgColor: string }) {
   return (
     <motion.div 
-      whileHover={{ y: -5 }}
-      className="p-8 bg-black border border-white/5 rounded-2xl hover:border-gold/30 transition-all"
+      whileHover={{ scale: 1.05 }}
+      className={`brutalist-card p-10 ${bgColor}`}
     >
-      <div className="mb-6">{icon}</div>
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
-      <p className="text-zinc-400 leading-relaxed">{description}</p>
+      <div className="mb-8">{icon}</div>
+      <h3 className="text-3xl font-black uppercase italic mb-6">{title}</h3>
+      <p className="text-lg font-bold leading-tight">{description}</p>
     </motion.div>
   );
 }
